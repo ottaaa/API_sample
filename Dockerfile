@@ -7,6 +7,8 @@ COPY . .
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends git
 
-RUN go get -u github.com/cosmtrek/air
+RUN go get -u \
+    github.com/cosmtrek/air \
+    github.com/go-sql-driver/mysql
 
 CMD ["air", "-c", ".air.toml"]

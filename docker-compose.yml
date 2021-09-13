@@ -1,18 +1,17 @@
 version: "3"
 services:
   db:
-    image: mysql:5.6.34
+    image: mysql:8.0.21
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
-      - "13306:3306"
+      - "23306:3306"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'pass'
+      MYSQL_ROOT_PASSWORD: 'root_pass'
+      MYSQL_DATABASE: 'test'
     volumes:
-      - mysql_volume:/var/lib/mysql
-    logging:
-      options:
-        max-size: 32m
-        max-file: "5"
+      - db_volume:/var/lib/mysql
   web:
     build: .
     tty: true
@@ -25,4 +24,4 @@ services:
     depends_on:
       - db
 volumes:
-  mysql_volume:
+  db_volume:
